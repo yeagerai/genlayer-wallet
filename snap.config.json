@@ -1,0 +1,11 @@
+{
+  "version": "0.1.0",
+  "source": "dist/bundle.js",
+  "iconPath": "src/icon.svg",
+  "manifest": {
+    "initialPermissions": {
+      "snap_confirm": {},
+      "snap_manageState": {}
+    }
+  }
+}

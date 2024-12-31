@@ -1,31 +1,25 @@
-# How to Connect to GenLayer Localnet via MetaMask
+# GenLayer Wallet
 
-Follow these steps to add the GenLayer Localnet as a custom network in MetaMask:
+A MetaMask Snap to interact with the GenLayer blockchain.
 
-## Step 1: Open MetaMask
-1. Unlock your MetaMask wallet or install MetaMask if you haven’t already.
+## Features
 
-## Step 2: Open the Network Settings
-1. Click the **network dropdown** in the top-left corner of the MetaMask interface.
-2. Scroll to the bottom of the list and click **"Add a custom network"**.
+- Fallback support for GenLayer RPC methods.
 
-## Step 3: Fill in the Custom Network Details
-Fill out the fields with the following information:
+## Getting Started
 
-- **Network Name**: `GenLayer Localnet`
-- **RPC URL**: `http://127.0.0.1:4000/api`
-- **Chain ID**: `61999`
-- **Currency Symbol**: `GEN`
-- **Block Explorer URL**: Leave this blank for now.
+### Prerequisites
 
-## Step 4: Save the Network
-1. Click on **"Save"** to confirm and add the network to your MetaMask.
-2. Once saved, you will be automatically switched to the **GenLayer Localnet** network.
+- [Node.js](https://nodejs.org/)
+- [MetaMask Flask](https://metamask.io/flask/)
 
-## Step 5: Verify the Network
-1. Confirm that the **GenLayer Localnet** is selected in the network dropdown.
+### Installation
 
-## Notes
-- Ensure the GenLayer Localnet is running and accessible at `http://127.0.0.1:4000/api`.
-- If you encounter issues, double-check the Chain ID and RPC URL.
+1. Clone the repository and install dependencies:
+   ```bash
+   npm install
 
+### Running
+
+   ```bash
+   npm run dev
