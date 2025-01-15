@@ -10,7 +10,7 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'Template Snap',
+        name: 'Genlayer Snap',
         icon: 'src/assets/logo.svg',
         /* eslint-disable @typescript-eslint/naming-convention */
         theme_color: '#6F4CFF',

@@ -1,40 +1,11 @@
 import { expect } from '@jest/globals';
-import type { SnapConfirmationInterface } from '@metamask/snaps-jest';
-import { installSnap } from '@metamask/snaps-jest';
-import { Box, Text, Bold } from '@metamask/snaps-sdk/jsx';
+import { assertIsConfirmationDialog, installSnap } from '@metamask/snaps-jest';
+
+import {
+  Insight,
+} from './components';
 
 describe('onRpcRequest', () => {
-  describe('hello', () => {
-    it('shows a confirmation dialog', async () => {
-      const { request } = await installSnap();
-
-      const origin = 'Jest';
-      const response = request({
-        method: 'hello',
-        origin,
-      });
-
-      const ui = (await response.getInterface()) as SnapConfirmationInterface;
-      expect(ui.type).toBe('confirmation');
-      expect(ui).toRender(
-        <Box>
-          <Text>
-            Hello, <Bold>{origin}</Bold>!
-          </Text>
-          <Text>This custom confirmation is just for display purposes.</Text>
-          <Text>
-            But you can edit the snap source code to make it do something, if
-            you want to!
-          </Text>
-        </Box>,
-      );
-
-      await ui.ok();
-
-      expect(await response).toRespondWith(true);
-    });
-  });
-
   it('throws an error if the requested method does not exist', async () => {
     const { request } = await installSnap();
 
@@ -43,9 +14,13 @@ describe('onRpcRequest', () => {
     });
 
     expect(response).toRespondWithError({
-      code: -32603,
-      message: 'Method not found.',
+      code: -32601,
+      message: 'The method does not exist / is not available.',
       stack: expect.any(String),
+      data: {
+        method: 'foo',
+        cause: null,
+      },
     });
   });
 });

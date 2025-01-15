@@ -42,16 +42,6 @@ const Span = styled.span`
   color: ${(props) => props.theme.colors.primary?.default};
 `;
 
-const Subtitle = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.large};
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0;
-  ${({ theme }) => theme.mediaQueries.small} {
-    font-size: ${({ theme }) => theme.fontSizes.text};
-  }
-`;
-
 const CardContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -110,55 +100,37 @@ const Index = () => {
     ? isFlask
     : snapsDetected;
 
-  const handleSendHelloClick = async () => {
-    const [from] = await window.ethereum.request({
-      method: 'eth_requestAccounts',
-      params: [],
-    });
-    console.log(from);
-    const response = await window.ethereum.request({
-      method: 'eth_sendTransaction',
-      params: [{from, to: "0x9ef64eC8984A77E02f0cBf06fCFE59B50a99f94B", value: '0x0', data: '0x1'}],
-    });
+  const handleRequestClick = async () => {
+    const answer = await invokeSnap({ method: 'transaction_config' }) as boolean;
+    console.log(answer);
+    if (answer) {
+      const [ from ] = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+        params: [],
+      });
+      try {
+        const response = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [
+            {
+              from,
+              to: '0x9ef64eC8984A77E02f0cBf06fCFE59B50a99f94B',
+              value: '0x0',
+              data: '0x1',
+            },
+          ],
+        });
+        console.log(response);
+      } catch (requestError) {
+        console.log(requestError);
+      }
+    }
   };
-
-  const handleSendHelloClick2 = async () => {
-    // const test= await window.ethereum.request({
-    //   "method": "eth_requestAccounts",
-    //   "params": [],
-    // });
-    // console.log(test);
-    await invokeSnap({ method: 'hello2' });
-  };
-
-  const handleSendHelloClick3 = async () => {
-    // const test= await window.ethereum.request({
-    //   "method": "eth_requestAccounts",
-    //   "params": [],
-    // });
-    // console.log(test);
-    const abcd = await invokeSnap({ method: 'hello' });
-    const [from] = await window.ethereum.request({
-      method: 'eth_requestAccounts',
-      params: [],
-    });
-    console.log(from);
-    const response = await window.ethereum.request({
-      method: 'eth_sendTransaction',
-      params: [{from, to: "0x9ef64eC8984A77E02f0cBf06fCFE59B50a99f94B", value: '0x0', data: '0x1'}],
-    });
-
-    console.log(abcd)
-  };
-
   return (
     <Container>
       <Heading>
-        Welcome to <Span>template-snap</Span>
+        Welcome to <Span>Genlayer Snap</Span>
       </Heading>
-      <Subtitle>
-        Get started by editing <code>src/index.tsx</code>
-      </Subtitle>
       <CardContainer>
         {error && (
           <ErrorMessage>
@@ -210,50 +182,11 @@ const Index = () => {
         )}
         <Card
           content={{
-            title: 'Method 1 (personal sign)',
-            description:
-              '.',
+            title: 'Test Snap',
+            description: '.',
             button: (
               <SendHelloButton
-                onClick={handleSendHelloClick2}
-                disabled={!installedSnap}
-              />
-            ),
-          }}
-          disabled={!installedSnap}
-          fullWidth={
-            isMetaMaskReady &&
-            Boolean(installedSnap) &&
-            !shouldDisplayReconnectButton(installedSnap)
-          }
-        />
-        <Card
-          content={{
-            title: 'Method 2 (dapp orchestration)',
-            description:
-              '.',
-            button: (
-              <SendHelloButton
-                onClick={handleSendHelloClick3}
-                disabled={!installedSnap}
-              />
-            ),
-          }}
-          disabled={!installedSnap}
-          fullWidth={
-            isMetaMaskReady &&
-            Boolean(installedSnap) &&
-            !shouldDisplayReconnectButton(installedSnap)
-          }
-        />
-        <Card
-          content={{
-            title: 'Method 3 (Transaction insight)',
-            description:
-              '.',
-            button: (
-              <SendHelloButton
-                onClick={handleSendHelloClick}
+                onClick={handleRequestClick}
                 disabled={!installedSnap}
               />
             ),
