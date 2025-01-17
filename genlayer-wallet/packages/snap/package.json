@@ -27,7 +27,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@metamask/snaps-sdk": "^6.10.0"
+    "@metamask/snaps-sdk": "^6.10.0",
+    "ethers":  "6.13.5"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",

@@ -5,11 +5,11 @@ import type {
   OnUserInputHandler,
 } from '@metamask/snaps-sdk';
 import { UserInputEventType, MethodNotFoundError } from '@metamask/snaps-sdk';
+import { decodeRlp, getBytes } from 'ethers';
 
 import type { AdvancedOptionsFormState } from './components';
-import { Insight } from './components';
-import { AdvancedOptionsForm } from './components/AdvancedOptionsForm';
-import { TransactionConfig } from './components/TransactionConfig';
+import { Insight, AdvancedOptionsForm, TransactionConfig } from './components';
+import { getPersistedData } from './libs/PersistedData';
 
 export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
   switch (request.method) {
@@ -41,11 +41,22 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
     params: { operation: 'get' },
   })) as AdvancedOptionsFormState;
 
+  console.log('Original Transaction:', transaction);
+  const decodedData = decodeRlp(transaction.data) as string[];
+  console.log('Transaction Decoded:', decodedData);
+  const deserializedData = decodedData.map((item: string) => {
+    const decodedTransaction = getBytes(item);
+    return new TextDecoder().decode(decodedTransaction);
+  });
+  console.log('Deserialized Data:', deserializedData);
+
+  // Here we could change the transaction including more info/parameters to send to our RPC
+
   const interfaceId = await snap.request({
     method: 'snap_createInterface',
     params: {
       ui: <Insight values={persistedData} />,
-      context: { transaction },
+      context: { transaction }, // here we need to change the context with the new modified transaction
     },
   });
 
@@ -53,6 +64,20 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
 };
 
 export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
+  if (
+    event.type === UserInputEventType.InputChangeEvent &&
+    event.name === 'number-of-appeals'
+  ) {
+    const persistedData = await getPersistedData();
+    persistedData['number-of-appeals'] = event.value as string;
+    await snap.request({
+      method: 'snap_updateInterface',
+      params: {
+        id,
+        ui: <AdvancedOptionsForm values={persistedData || {}} />,
+      },
+    });
+  }
   if (event.type === UserInputEventType.ButtonClickEvent) {
     switch (event.name) {
       case 'cancel_config':
@@ -67,15 +92,13 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
 
       case 'advanced_options':
         // eslint-disable-next-line no-case-declarations
-        const persistedData = (await snap.request({
-          method: 'snap_manageState',
-          params: { operation: 'get' },
-        })) as AdvancedOptionsFormState;
+        const persistedData = await getPersistedData();
+        console.log(persistedData);
         await snap.request({
           method: 'snap_updateInterface',
           params: {
             id,
-            ui: <AdvancedOptionsForm values={persistedData} />,
+            ui: <AdvancedOptionsForm values={persistedData || {}} />,
           },
         });
         break;

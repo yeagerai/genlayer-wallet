@@ -2,6 +2,7 @@ import type { SnapComponent } from '@metamask/snaps-sdk/jsx';
 import {
   Box,
   Heading,
+  Italic,
   Text,
   Bold,
   Section,
@@ -43,7 +44,9 @@ export const TransactionConfig: SnapComponent = () => {
           <Text>
             <Bold>Estimated Fee Range:</Bold>
           </Text>
-          <Text>0.5 to 5.06 GEN</Text>
+          <Text color={'error'}>
+            <Italic>0.5 to 5.06 GEN</Italic>
+          </Text>
         </Box>
         <Box direction="horizontal" alignment={'space-between'}>
           <Text>GenLayer storage cost:</Text>

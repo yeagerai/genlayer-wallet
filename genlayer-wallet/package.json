@@ -58,6 +58,7 @@
     }
   },
   "dependencies": {
-    "@metamask/key-tree": "^10.0.2"
+    "@metamask/key-tree": "^10.0.2",
+    "ethers": "^6.13.5"
   }
 }
