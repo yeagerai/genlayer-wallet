@@ -75,7 +75,7 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     event.name === 'number-of-appeals'
   ) {
     const currentTo = await StateManager.get('currentTo');
-    const persistedData = await StateManager.get(currentTo);
+    const persistedData = (await StateManager.get(currentTo)) || {};
     persistedData['number-of-appeals'] = event.value as string;
     await snap.request({
       method: 'snap_updateInterface',

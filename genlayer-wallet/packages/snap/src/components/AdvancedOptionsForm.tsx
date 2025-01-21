@@ -37,7 +37,7 @@ export const AdvancedOptionsForm: SnapComponent<AdvancedOptionsFormProps> = ({
           <Field label="Number of Appeals">
             <Dropdown
               name="number-of-appeals"
-              value={values['number-of-appeals' || '']}
+              value={values['number-of-appeals'] || ''}
             >
               <Option value="1">1</Option>
               <Option value="2">2</Option>
