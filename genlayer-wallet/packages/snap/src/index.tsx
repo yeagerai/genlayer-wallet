@@ -9,9 +9,16 @@ import { decodeRlp, getBytes } from 'ethers';
 
 import type { AdvancedOptionsFormState } from './components';
 import { Insight, AdvancedOptionsForm, TransactionConfig } from './components';
-import { getPersistedData } from './libs/PersistedData';
+import { StateManager } from './libs/StateManager';
+
+type RpcParams = {
+  to?: string;
+  [key: string]: any;
+};
 
 export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
+  const params = request.params ? (request.params as RpcParams) : {};
+  await StateManager.set('currentTo', params.to);
   switch (request.method) {
     case 'transaction_config': {
       return await snap.request({
@@ -36,10 +43,9 @@ export const onHomePage: OnHomePageHandler = async () => {
 };
 
 export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
-  const persistedData = (await snap.request({
-    method: 'snap_manageState',
-    params: { operation: 'get' },
-  })) as AdvancedOptionsFormState;
+  const persistedData = (await StateManager.get(
+    transaction.to,
+  )) as AdvancedOptionsFormState;
 
   console.log('Original Transaction:', transaction);
   const decodedData = decodeRlp(transaction.data) as string[];
@@ -68,7 +74,8 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     event.type === UserInputEventType.InputChangeEvent &&
     event.name === 'number-of-appeals'
   ) {
-    const persistedData = await getPersistedData();
+    const currentTo = await StateManager.get('currentTo');
+    const persistedData = await StateManager.get(currentTo);
     persistedData['number-of-appeals'] = event.value as string;
     await snap.request({
       method: 'snap_updateInterface',
@@ -92,7 +99,11 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
 
       case 'advanced_options':
         // eslint-disable-next-line no-case-declarations
-        const persistedData = await getPersistedData();
+        const currentTo = await StateManager.get('currentTo');
+        // eslint-disable-next-line no-case-declarations
+        const persistedData = (await StateManager.get(
+          currentTo,
+        )) as AdvancedOptionsFormState;
         console.log(persistedData);
         await snap.request({
           method: 'snap_updateInterface',
@@ -113,13 +124,7 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     event.name === 'advanced-options-form'
   ) {
     const value = event.value as AdvancedOptionsFormState;
-    await snap.request({
-      method: 'snap_manageState',
-      params: {
-        operation: 'update',
-        newState: value,
-      },
-    });
+    await StateManager.set('default', value);
     await snap.request({
       method: 'snap_updateInterface',
       params: {
