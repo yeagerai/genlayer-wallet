@@ -17,7 +17,7 @@ type RpcParams = {
 };
 
 export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
-  const params = request.params ? (request.params as RpcParams) : {};
+  const params = (request.params ? [0] : {}) as RpcParams;
   await StateManager.set('currentTo', params.to);
   switch (request.method) {
     case 'transaction_config': {
