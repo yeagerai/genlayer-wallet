@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { localnet } from 'genlayer-js/chains';
+import { createClient } from 'genlayer-js';
 
 import {
   ConnectButton,
@@ -101,6 +103,12 @@ const Index = () => {
     : snapsDetected;
 
   const handleRequestClick = async () => {
+    const client = createClient({
+      chain: localnet,
+      endpoint: 'http://127.0.0.1:4000/api',
+      account: '0xf15acc0C943266bC638A9410F637a0b369a5fb4c',
+    });
+    client.connect();
     const answer = await invokeSnap({ method: 'transaction_config' }) as boolean;
     console.log(answer);
     if (answer) {
@@ -187,11 +195,10 @@ const Index = () => {
             button: (
               <SendHelloButton
                 onClick={handleRequestClick}
-                disabled={!installedSnap}
               />
             ),
           }}
-          disabled={!installedSnap}
+          // disabled={!installedSnap}
           fullWidth={
             isMetaMaskReady &&
             Boolean(installedSnap) &&

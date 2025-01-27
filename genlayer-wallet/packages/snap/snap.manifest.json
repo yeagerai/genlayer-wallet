@@ -1,18 +1,19 @@
 {
   "version": "0.1.0",
-  "description": "Genlayer Snap",
-  "proposedName": "Genlayer Snap",
+  "description": "Adds new GenLayer blockchain functionalities, such as rotations, appeals, and more.",
+  "proposedName": "Genlayer Wallet",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "F7GCmWlYgHGVDIiq6cUBhUikq4vh6aEx7F7QxyMjzpA=",
+    "shasum": "sEINr1ZBl8/6dQ3pVlVo52HjwLyNcJ/RLTg8E+fVPhs=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "packageName": "snap",
-        "registry": "https://registry.npmjs.org/"
+        "registry": "https://registry.npmjs.org/",
+        "iconPath": "src/assets/logo.svg"
       }
     }
   },
