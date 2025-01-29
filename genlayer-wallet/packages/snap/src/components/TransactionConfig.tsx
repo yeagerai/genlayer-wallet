@@ -14,31 +14,6 @@ import {
 export const TransactionConfig: SnapComponent = () => {
   return (
     <Box>
-      <Box direction={'horizontal'} alignment={'center'}>
-        <Heading size={'lg'}>Transaction Request</Heading>
-      </Box>
-      <Section>
-        <Box direction="horizontal" alignment={'space-between'}>
-          <Text>
-            <Bold>Request from:</Bold>
-          </Text>
-          <Text>localhost:8080</Text>
-        </Box>
-        <Box direction="horizontal" alignment={'space-between'}>
-          <Text>
-            <Bold>Interacting with:</Bold>
-          </Text>
-          <Address address="0x37F91BBaaFB67C98Ac7238E2586cC7251A33f2a3" />
-        </Box>
-      </Section>
-      <Section>
-        <Box direction="horizontal" alignment={'space-between'}>
-          <Text>
-            <Bold>Amount:</Bold>
-          </Text>
-          <Text>22 GEN</Text>
-        </Box>
-      </Section>
       <Section>
         <Box direction="horizontal" alignment={'space-between'}>
           <Text>

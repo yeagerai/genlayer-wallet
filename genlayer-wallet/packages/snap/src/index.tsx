@@ -43,9 +43,9 @@ export const onHomePage: OnHomePageHandler = async () => {
 };
 
 export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
-  const persistedData = (await StateManager.get(
-    transaction.to,
-  )) as AdvancedOptionsFormState;
+  await StateManager.set('currentTo', transaction.to ?? 'default');
+  const test = await StateManager.get('currentTo');
+  console.log(test);
 
   console.log('Original Transaction:', transaction);
   const decodedData = decodeRlp(transaction.data) as string[];
@@ -61,7 +61,7 @@ export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   const interfaceId = await snap.request({
     method: 'snap_createInterface',
     params: {
-      ui: <Insight values={persistedData} />,
+      ui: <TransactionConfig />,
       context: { transaction }, // here we need to change the context with the new modified transaction
     },
   });
@@ -123,8 +123,11 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
     event.type === UserInputEventType.FormSubmitEvent &&
     event.name === 'advanced-options-form'
   ) {
+    const currentTo = await StateManager.get('currentTo');
     const value = event.value as AdvancedOptionsFormState;
-    await StateManager.set('default', value);
+    console.log(currentTo);
+    console.log(value);
+    await StateManager.set(currentTo, value);
     await snap.request({
       method: 'snap_updateInterface',
       params: {
