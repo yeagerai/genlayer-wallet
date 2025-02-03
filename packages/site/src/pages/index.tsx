@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { localnet } from 'genlayer-js/chains';
-import { createClient } from 'genlayer-js';
 
 import {
   ConnectButton,
@@ -10,12 +8,7 @@ import {
   Card,
 } from '../components';
 import { defaultSnapOrigin } from '../config';
-import {
-  useMetaMask,
-  useInvokeSnap,
-  useMetaMaskContext,
-  useRequestSnap,
-} from '../hooks';
+import { useMetaMask, useMetaMaskContext, useRequestSnap } from '../hooks';
 import { isLocalSnap, shouldDisplayReconnectButton } from '../utils';
 
 const Container = styled.div`
@@ -108,10 +101,10 @@ const Index = () => {
     //   account: '0xf15acc0C943266bC638A9410F637a0b369a5fb4c',
     // });
     // client.connect(); add this later
-    const [ from ] = await window.ethereum.request({
+    const [from] = (await window.ethereum.request({
       method: 'eth_requestAccounts',
       params: [],
-    });
+    })) as any;
     try {
       const response = await window.ethereum.request({
         method: 'eth_sendTransaction',

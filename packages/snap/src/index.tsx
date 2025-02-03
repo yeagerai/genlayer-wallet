@@ -5,10 +5,9 @@ import type {
   OnUserInputHandler,
 } from '@metamask/snaps-sdk';
 import { UserInputEventType, MethodNotFoundError } from '@metamask/snaps-sdk';
-import { decodeRlp, getBytes } from 'ethers';
 
 import type { AdvancedOptionsFormState } from './components';
-import { Insight, AdvancedOptionsForm, TransactionConfig } from './components';
+import { AdvancedOptionsForm, TransactionConfig } from './components';
 import { StateManager } from './libs/StateManager';
 
 type RpcParams = {

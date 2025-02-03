@@ -1,9 +1,5 @@
 import { expect } from '@jest/globals';
-import { assertIsConfirmationDialog, installSnap } from '@metamask/snaps-jest';
-
-import {
-  Insight,
-} from './components';
+import { installSnap } from '@metamask/snaps-jest';
 
 describe('onRpcRequest', () => {
   it('throws an error if the requested method does not exist', async () => {

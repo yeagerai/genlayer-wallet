@@ -1,12 +1,10 @@
 import type { SnapComponent } from '@metamask/snaps-sdk/jsx';
 import {
   Box,
-  Heading,
   Italic,
   Text,
   Bold,
   Section,
-  Address,
   Divider,
   Button,
 } from '@metamask/snaps-sdk/jsx';
