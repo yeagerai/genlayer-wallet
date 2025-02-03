@@ -1,43 +1,34 @@
-name: 'MetaMask Security Code Scanner'
+name: Snapper Security Scan
 
 on:
-  push:
-    branches: ['main']
   pull_request:
-    branches: ['main']
+  push:
+    branches:
+      - main
 
 jobs:
-  run-security-scan:
+  security_scan:
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
+
     steps:
-      - name: MetaMask Security Code Scanner
-        uses: MetaMask/Security-Code-Scanner@main
-        with:
-          repo: ${{ github.repository }}
-          paths_ignored: |
-            .storybook/
-            '**/__snapshots__/'
-            '**/*.snap'
-            '**/*.stories.js'
-            '**/*.stories.tsx'
-            '**/*.test.browser.ts*'
-            '**/*.test.js*'
-            '**/*.test.ts*'
-            '**/fixtures/'
-            '**/jest.config.js'
-            '**/jest.environment.js'
-            '**/mocks/'
-            '**/test*/'
-            docs/
-            e2e/
-            merged-packages/
-            node_modules
-            storybook/
-            test*/
-          rules_excluded: example
-          project_metrics_token: ${{ secrets.SECURITY_SCAN_METRICS_TOKEN }}
-          slack_webhook: ${{ secrets.APPSEC_BOT_SLACK_WEBHOOK }}
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Snapper
+        run: |
+          npm install -g @metamask/snapper
+
+      - name: Run Snapper Security Audit
+        id: snapper_scan
+        run: |
+          snapper --path packages/snap --verbose | tee snapper_output.log
+
+      - name: Fail if Security Issues Are Found
+        run: |
+          total_issues=$(grep -oP 'Total issues found: \K\d+' snapper_output.log)
+          if [ "$total_issues" -gt 0 ]; then
+            echo "❌ Security issues detected ($total_issues issues). Failing the job."
+            exit 1
+          else
+            echo "✅ No security issues found!"
+          fi
