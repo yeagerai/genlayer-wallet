@@ -62,7 +62,8 @@
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false,
-      "sharp": true
+      "sharp": true,
+      "@sayfer_io/snapper>ts-node>@swc/core": false
     }
   }
 }
