@@ -14,14 +14,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Snapper
-        run: |
-          npm install -g @sayfer_io/snapper
+      - name: Install Dependencies
+        run: yarn install --immutable
 
       - name: Run Snapper Security Audit
         id: snapper_scan
-        run: |
-          snapper --path packages/snap --verbose | tee snapper_output.log
+        run: yarn snapper:scan | tee snapper_output.log
 
       - name: Fail if Security Issues Are Found
         run: |
