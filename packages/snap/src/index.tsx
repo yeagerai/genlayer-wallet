@@ -43,19 +43,6 @@ export const onHomePage: OnHomePageHandler = async () => {
 
 export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   await StateManager.set('currentTo', transaction.to ?? 'default');
-  const test = await StateManager.get('currentTo');
-  console.log(test);
-
-  console.log('Original Transaction:', transaction);
-  // const decodedData = decodeRlp(transaction.data) as string[];
-  // console.log('Transaction Decoded:', decodedData);
-  // const deserializedData = decodedData.map((item: string) => {
-  //   const decodedTransaction = getBytes(item);
-  //   return new TextDecoder().decode(decodedTransaction);
-  // });
-  // console.log('Deserialized Data:', deserializedData);
-
-  // Here we could change the transaction including more info/parameters to send to our RPC
 
   const interfaceId = await snap.request({
     method: 'snap_createInterface',
@@ -103,7 +90,6 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
         const persistedData = (await StateManager.get(
           currentTo,
         )) as AdvancedOptionsFormState;
-        console.log(persistedData);
         await snap.request({
           method: 'snap_updateInterface',
           params: {
@@ -124,8 +110,6 @@ export const onUserInput: OnUserInputHandler = async ({ id, event }) => {
   ) {
     const currentTo = await StateManager.get('currentTo');
     const value = event.value as AdvancedOptionsFormState;
-    console.log(currentTo);
-    console.log(value);
     await StateManager.set(currentTo, value);
     await snap.request({
       method: 'snap_updateInterface',

@@ -22,9 +22,9 @@
     "lint:eslint": "eslint . --cache --ext js,jsx,ts,tsx",
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
     "lint:misc": "prettier '**/*.json' '**/*.md' '!**/CHANGELOG.md' '**/*.yml' --ignore-path .gitignore",
+    "snapper:scan": "snapper --path packages/snap --verbose",
     "start": "yarn workspaces foreach --parallel --interlaced --verbose run start",
-    "test": "yarn workspace snap run test",
-    "snapper:scan": "snapper --path packages/snap --verbose"
+    "test": "yarn workspace snap run test"
   },
   "dependencies": {
     "@metamask/key-tree": "^10.0.2",
