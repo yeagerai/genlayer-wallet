@@ -16,7 +16,7 @@ jobs:
 
       - name: Install Snapper
         run: |
-          npm install -g @metamask/snapper
+          npm install -g @sayfer_io/snapper
 
       - name: Run Snapper Security Audit
         id: snapper_scan
