@@ -1,41 +1,13 @@
 import type {
-  OnRpcRequestHandler,
   OnHomePageHandler,
   OnTransactionHandler,
   OnUserInputHandler,
 } from '@metamask/snaps-sdk';
-import { UserInputEventType, MethodNotFoundError } from '@metamask/snaps-sdk';
+import { UserInputEventType } from '@metamask/snaps-sdk';
 
 import type { AdvancedOptionsFormState } from './components';
 import { AdvancedOptionsForm, TransactionConfig } from './components';
 import { StateManager } from './libs/StateManager';
-
-type RpcParams = {
-  to?: string;
-  [key: string]: any;
-};
-
-export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
-  const params = (request.params ? [0] : {}) as RpcParams;
-  await StateManager.set('currentTo', params.to);
-  switch (request.method) {
-    case 'transaction_config': {
-      return await snap.request({
-        method: 'snap_dialog',
-        params: {
-          type: 'confirmation',
-          content: <TransactionConfig />,
-        },
-      });
-    }
-
-    default:
-      // eslint-disable-next-line @typescript-eslint/no-throw-literal
-      throw new MethodNotFoundError({
-        method: request.method,
-      });
-  }
-};
 
 export const onHomePage: OnHomePageHandler = async () => {
   return { content: <TransactionConfig /> };

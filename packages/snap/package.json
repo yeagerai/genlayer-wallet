@@ -1,7 +1,7 @@
 {
-  "name": "snap",
+  "name": "genlayer-wallet-plugin",
   "version": "0.1.0",
-  "description": "The 'Hello, world!' of MetaMask Snaps, now written in TypeScript.",
+  "description": "Adds new GenLayer blockchain functionalities, such as rotations, appeals, and more.",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"

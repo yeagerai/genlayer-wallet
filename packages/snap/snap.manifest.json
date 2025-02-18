@@ -7,11 +7,11 @@
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "XKKPsds6etVSl8VWZFxXeOEV76ULLrFOknGAkIQLuMk=",
+    "shasum": "Leb3LWbg5fL7xLmrbwrDlTSYKf4MEsilsoMoNpsqb2A=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "packageName": "snap",
+        "packageName": "genlayer-wallet-plugin",
         "registry": "https://registry.npmjs.org/",
         "iconPath": "src/assets/logo.svg"
       }
@@ -19,10 +19,6 @@
   },
   "initialPermissions": {
     "snap_dialog": {},
-    "endowment:rpc": {
-      "dapps": true,
-      "snaps": true
-    },
     "endowment:transaction-insight": {},
     "snap_manageState": {}
   },
