@@ -1,5 +1,4 @@
 import type {
-  OnHomePageHandler,
   OnTransactionHandler,
   OnUserInputHandler,
 } from '@metamask/snaps-sdk';
@@ -8,10 +7,6 @@ import { UserInputEventType } from '@metamask/snaps-sdk';
 import type { AdvancedOptionsFormState } from './components';
 import { AdvancedOptionsForm, TransactionConfig } from './components';
 import { StateManager } from './libs/StateManager';
-
-export const onHomePage: OnHomePageHandler = async () => {
-  return { content: <TransactionConfig /> };
-};
 
 export const onTransaction: OnTransactionHandler = async ({ transaction }) => {
   await StateManager.set('currentTo', transaction.to ?? 'default');
