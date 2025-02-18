@@ -45,7 +45,9 @@ describe('Snap Handlers', () => {
         name: 'number-of-appeals',
         value: '4',
       };
-      const getMock = jest.spyOn(StateManager, 'get').mockImplementation(async (key: string | undefined) => {
+      const getMock = jest
+        .spyOn(StateManager, 'get')
+        .mockImplementation(async (key: string | undefined) => {
           if (key === 'currentTo') {
             return '0xABCDEF';
           }
@@ -54,7 +56,9 @@ describe('Snap Handlers', () => {
           }
           return {};
         });
-      const requestMock = jest.spyOn(snap, 'request').mockResolvedValue(undefined);
+      const requestMock = jest
+        .spyOn(snap, 'request')
+        .mockResolvedValue(undefined);
       await onUserInput({ id: interfaceId, event } as Parameters<
         typeof onUserInput
       >[0]);
