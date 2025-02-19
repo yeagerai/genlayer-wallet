@@ -1,0 +1,35 @@
+name: Snapper Security Scan
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  security_scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Run Snapper Security Audit
+        id: snapper_scan
+        run: |
+          yarn snapper:scan | tee snapper_output.log
+
+      - name: Fail if Security Issues Are Found
+        run: |
+          total_issues=$(grep -oP 'Total issues found: \K\d+' snapper_output.log)
+          if [ "$total_issues" -gt 0 ]; then
+            echo "❌ Security issues detected ($total_issues issues)."
+            echo "🛑 Logging security issues below:"
+            cat result-*.json | jq .
+            exit 1
+          else
+            echo "✅ No security issues found!"
+          fi

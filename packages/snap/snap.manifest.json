@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0",
+  "description": "Adds new GenLayer blockchain functionalities, such as rotations, appeals, and more.",
+  "proposedName": "Genlayer Wallet",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yeagerai/genlayer-wallet.git"
+  },
+  "source": {
+    "shasum": "6CVqVY/TsuzUweu2ok04J3vdf2pSLwb7veOs/ReYYGQ=",
+    "location": {
+      "npm": {
+        "filePath": "dist/bundle.js",
+        "packageName": "genlayer-wallet-plugin",
+        "registry": "https://registry.npmjs.org/",
+        "iconPath": "src/assets/logo.svg"
+      }
+    }
+  },
+  "initialPermissions": {
+    "snap_dialog": {},
+    "endowment:transaction-insight": {},
+    "snap_manageState": {}
+  },
+  "platformVersion": "6.14.0",
+  "manifestVersion": "0.1"
+}
