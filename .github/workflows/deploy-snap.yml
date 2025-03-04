@@ -27,11 +27,15 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: yarn workspaces focus genlayer-wallet-plugin
+      - name: Install dependencies (including peer dependencies)
+        run: |
+          cd packages/snap
+          npm ci --legacy-peer-deps
 
       - name: Build Snap
-        run: yarn workspace genlayer-wallet-plugin build
+        run: |
+          cd packages/snap
+          npm run build
 
       - name: Publish using Semantic Release
         env:
