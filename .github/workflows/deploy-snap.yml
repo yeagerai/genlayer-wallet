@@ -21,7 +21,7 @@ jobs:
         run: yarn workspaces focus genlayer-wallet-plugin
 
       - name: Bump Version (Without Commit)
-        run: yarn workspace genlayer-wallet-plugin version prerelease -i
+        run: yarn workspace genlayer-wallet-plugin version prerelease -d
 
       - name: Build Snap
         run: yarn workspace genlayer-wallet-plugin build
