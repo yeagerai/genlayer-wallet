@@ -12,7 +12,7 @@
     "snap.manifest.json"
   ],
   "scripts": {
-    "allow-scripts": "yarn workspace root allow-scripts",
+    "allow-scripts": "yarn workspace genlayer-wallet allow-scripts",
     "build": "mm-snap build",
     "build:clean": "yarn clean && yarn build",
     "clean": "rimraf dist",
@@ -38,10 +38,12 @@
     "@metamask/eslint-config-typescript": "^12.1.0",
     "@metamask/snaps-cli": "^6.5.2",
     "@metamask/snaps-jest": "^8.7.0",
+    "@semantic-release/release-notes-generator": "^14.0.3",
     "@types/react": "18.2.4",
     "@types/react-dom": "18.2.4",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "~2.26.0",
