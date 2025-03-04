@@ -23,7 +23,8 @@
     "prepublishOnly": "mm-snap manifest",
     "serve": "mm-snap serve",
     "start": "mm-snap watch",
-    "test": "jest"
+    "test": "jest",
+    "release": "release-it"
   },
   "dependencies": {
     "@metamask/snaps-sdk": "^6.10.0",

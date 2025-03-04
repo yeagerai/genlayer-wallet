@@ -1,43 +1,51 @@
-name: Deploy Snap
+name: Release & Publish Package to NPM
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
 
 jobs:
-  deploy:
-    name: Publish Snap to npm
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Get CI Bot Token
-        uses: tibdex/github-app-token@v2
+        uses: tibdex/github-app-token@v1
         id: ci_bot_token
         with:
           app_id: ${{ secrets.CI_BOT_APP_ID }}
           private_key: ${{ secrets.CI_BOT_SECRET }}
 
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout source code
+        uses: actions/checkout@v4
         with:
           token: ${{ steps.ci_bot_token.outputs.token }}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: "18"
+          registry-url: "https://registry.npmjs.org"
 
-      - name: Install dependencies (including peer dependencies)
+      - name: Install dependencies
+        working-directory: packages/snap
         run: npm install --legacy-peer-deps
-        working-directory: packages/snap
 
-      - name: Build Snap
-        run: npm run build
-        working-directory: packages/snap
+      - name: Initialize Git User
+        run: |
+          git config --global user.email "github-actions[bot]@genlayer.com"
+          git config --global user.name "github-actions[bot]"
 
-      - name: Publish using Semantic Release
-        run: npx semantic-release
+      - name: Initialize the NPM configuration
         working-directory: packages/snap
+        run: npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Run Semantic Release
+        working-directory: packages/snap
+        run: npm run release
         env:
           GITHUB_TOKEN: ${{ steps.ci_bot_token.outputs.token }}
-          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
