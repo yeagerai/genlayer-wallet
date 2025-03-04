@@ -1,9 +1,0 @@
-{
-  "branches": [
-    "main",
-    {
-      "name": "new-publish-workflow",
-      "prerelease": "beta"
-    }
-  ]
-}
