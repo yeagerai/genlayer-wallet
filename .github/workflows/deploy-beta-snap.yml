@@ -1,9 +1,7 @@
 name: Deploy Snap
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -28,4 +26,4 @@ jobs:
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: cd packages/snap && yarn publish --access public
+        run: cd packages/snap && yarn publish --tag beta --access public
