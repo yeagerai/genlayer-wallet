@@ -28,19 +28,16 @@ jobs:
           node-version: 20
 
       - name: Install dependencies (including peer dependencies)
-        run: |
-          cd packages/snap
-          npm ci --legacy-peer-deps
+        run: npm install --legacy-peer-deps
+        working-directory: packages/snap
 
       - name: Build Snap
-        run: |
-          cd packages/snap
-          npm run build
+        run: npm run build
+        working-directory: packages/snap
 
       - name: Publish using Semantic Release
+        run: npx semantic-release
+        working-directory: packages/snap
         env:
           GITHUB_TOKEN: ${{ steps.ci_bot_token.outputs.token }}
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          cd packages/snap
-          npx semantic-release
