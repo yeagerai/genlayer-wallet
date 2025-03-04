@@ -1,9 +1,7 @@
 name: Deploy Snap
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -12,6 +10,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -25,7 +25,10 @@ jobs:
       - name: Build Snap
         run: yarn workspace genlayer-wallet-plugin build
 
-      - name: Publish to npm
+      - name: Publish using Semantic Release
         env:
-          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: yarn workspace genlayer-wallet-plugin npm publish --access public
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: |
+          cd packages/snap
+          npx semantic-release
