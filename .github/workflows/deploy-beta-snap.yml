@@ -18,12 +18,12 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn workspaces focus genlayer-wallet-plugin
 
       - name: Build Snap
-        run: yarn build
+        run: yarn workspace genlayer-wallet-plugin build
 
       - name: Publish to npm
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: cd packages/snap && yarn publish --tag beta --access public
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: yarn workspace genlayer-wallet-plugin npm publish --tag beta --access public
