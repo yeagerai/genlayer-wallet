@@ -83,7 +83,7 @@ node_modules/
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
-!.yarn/versions
+#!.yarn/versions
 
 # Editor files
 .idea
