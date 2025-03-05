@@ -30,7 +30,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - run: yarn --immutable --immutable-cache
-      - run: yarn build
+      - run: yarn rebuild
       - name: Cache snap build
         uses: actions/cache@v3
         with:
