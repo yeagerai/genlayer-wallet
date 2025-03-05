@@ -34,7 +34,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
 
       - name: Patch version
-        run: |
+        'run': |
           yarn workspace genlayer-wallet-plugin version patch
           VERSION=$(jq -r .version packages/snap/package.json)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
