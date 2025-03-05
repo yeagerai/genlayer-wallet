@@ -32,17 +32,16 @@ jobs:
       - name: Patch version
         run: |
           yarn workspace genlayer-wallet-plugin version patch
-          VERSION=$(jq -r .version package.json)
+          VERSION=$(jq -r .version packages/snap/package.json)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Commit Version Bump
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: bump version to ${{ env.VERSION }}"
-          tagging_message: "v${{ env.VERSION }}"
+          commit_message: 'chore: bump version to ${{ env.VERSION }}'
+          tagging_message: 'v${{ env.VERSION }}'
           push_options: --force
           branch: ${{ github.ref }}
-
 #      - name: Publish to npm
 #        env:
 #          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
