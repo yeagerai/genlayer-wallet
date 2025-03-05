@@ -1,18 +1,12 @@
 name: Deploy Snap
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
     name: Publish Snap to npm
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/snap
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -24,12 +18,12 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn workspaces focus genlayer-wallet-plugin
 
       - name: Build Snap
-        run: yarn build
+        run: yarn workspace genlayer-wallet-plugin build
 
       - name: Publish to npm
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: yarn publish --access public
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: yarn workspace genlayer-wallet-plugin npm publish --tag beta --access public
