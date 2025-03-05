@@ -22,7 +22,13 @@ jobs:
       - name: Build Snap
         run: yarn workspace genlayer-wallet-plugin build
 
-      - name: Publish to npm
-        env:
-          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: yarn workspace genlayer-wallet-plugin npm publish --tag beta --access public
+      - name: Patch version
+        run: |
+          yarn workspace genlayer-wallet-plugin version patch
+          git add packages/snap/package.json
+          git commit -m "chore: bump version"
+
+#      - name: Publish to npm
+#        env:
+#          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+#        run: yarn workspace genlayer-wallet-plugin npm publish --tag beta --access public

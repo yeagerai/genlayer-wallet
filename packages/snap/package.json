@@ -1,6 +1,6 @@
 {
   "name": "genlayer-wallet-plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Adds new GenLayer blockchain functionalities, such as rotations, appeals, and more.",
   "repository": {
     "type": "git",
