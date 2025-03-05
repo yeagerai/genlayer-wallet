@@ -6,19 +6,7 @@ const config: GatsbyConfig = {
 
   plugins: [
     'gatsby-plugin-svgr',
-    'gatsby-plugin-styled-components',
-    {
-      resolve: 'gatsby-plugin-manifest',
-      options: {
-        name: 'Genlayer Snap',
-        icon: 'src/assets/logo.svg',
-        /* eslint-disable @typescript-eslint/naming-convention */
-        theme_color: '#6F4CFF',
-        background_color: '#FFFFFF',
-        /* eslint-enable @typescript-eslint/naming-convention */
-        display: 'standalone',
-      },
-    },
+    'gatsby-plugin-styled-components'
   ],
 };
 
