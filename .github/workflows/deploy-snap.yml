@@ -33,8 +33,8 @@ jobs:
           git config --global user.email "github-actions[bot]@genlayer.com"
           git config --global user.name "github-actions[bot]"
 
-      - name: Patch version
-        'run': |
+      - name: Patch Version
+        run: |
           yarn workspace genlayer-wallet-plugin version patch
           VERSION=$(jq -r .version packages/snap/package.json)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
