@@ -1,6 +1,6 @@
 {
   "name": "genlayer-wallet-plugin",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Adds new GenLayer blockchain functionalities, such as rotations, appeals, and more.",
   "repository": {
     "type": "git",
@@ -9,7 +9,8 @@
   "main": "./dist/bundle.js",
   "files": [
     "dist/",
-    "snap.manifest.json"
+    "snap.manifest.json",
+    "src/assets/logo.svg"
   ],
   "scripts": {
     "allow-scripts": "yarn workspace root allow-scripts",
