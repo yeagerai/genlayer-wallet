@@ -24,6 +24,11 @@ jobs:
       - name: Build Snap
         run: yarn workspace genlayer-wallet-plugin build
 
+      - name: Configure Git Identity
+        run: |
+          git config --global user.email "github-actions[bot]@genlayer.com"
+          git config --global user.name "github-actions[bot]"
+
       - name: Patch version
         run: |
           yarn workspace genlayer-wallet-plugin version patch
