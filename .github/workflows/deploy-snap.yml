@@ -39,7 +39,6 @@ jobs:
           VERSION=$(jq -r ".version" "packages/snap/package.json")
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
 
-
       - name: Commit Version Bump
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
