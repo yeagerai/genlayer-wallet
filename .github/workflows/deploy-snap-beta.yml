@@ -59,4 +59,4 @@ jobs:
       - name: Publish to npm
         env:
           YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: yarn workspace genlayer-wallet-plugin npm publish --access public
+        run: yarn workspace genlayer-wallet-plugin npm publish --tag beta --access public
