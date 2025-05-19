@@ -1,4 +1,4 @@
-name: Deploy Snap
+name: Deploy Snap Production
 
 on:
   workflow_dispatch:

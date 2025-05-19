@@ -1,4 +1,4 @@
-name: Deploy Snap
+name: Deploy Snap Beta
 
 on:
   workflow_dispatch:
